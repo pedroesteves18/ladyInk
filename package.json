@@ -1,0 +1,56 @@
+{
+  "name": "ladyink",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "api",
+    "webapp"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api:dev": "npx prisma generate && nodemon api/app.js",
+    "api:start": "node ./api/app.js",
+    "db:migrate": "prisma migrate dev",
+    "docker:up": "docker-compose -f docker-compose.local.yml up -d",
+    "docker:rebuild": "docker-compose -f docker-compose.local.yml up --build -d"
+  },
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.888.0",
+    "@aws-sdk/credential-providers": "^3.940.0",
+    "@aws-sdk/lib-storage": "^3.940.0",
+    "@fullcalendar/core": "^6.1.19",
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/timegrid": "^6.1.19",
+    "@fullcalendar/vue3": "^6.1.19",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "axios": "^1.13.0",
+    "bcrypt": "^6.0.0",
+    "concurrently": "^8.2.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.5.2",
+    "express-session": "^1.19.0",
+    "helmet": "^8.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "node-cron": "^4.2.1",
+    "nodemon": "^3.1.10",
+    "pdfkit": "^0.19.1",
+    "pg": "^8.23.0",
+    "psql": "^0.0.1",
+    "qalendar": "^3.9.0",
+    "rate-limit": "^0.1.1",
+    "router": "^2.2.0",
+    "sequelize": "^6.37.7",
+    "session": "^0.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^7.10.0"
+  }
+}

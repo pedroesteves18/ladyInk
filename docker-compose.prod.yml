@@ -1,0 +1,50 @@
+services:
+  db:
+    image: postgres:15
+    container_name: clinica_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - clinica_network
+
+  api:
+    image: ${ACCOUNT_ID}.dkr.ecr.us-east-2.amazonaws.com/clinica-api:latest
+    container_name: clinica_api
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000"
+    networks:
+      - clinica_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: clinica_nginx
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+    volumes:
+      - ./webapp/dist:/usr/share/nginx/html:ro
+      - ./webapp/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - clinica_network
+volumes:
+  db_data:
+
+networks:
+  clinica_network:
