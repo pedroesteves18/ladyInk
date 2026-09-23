@@ -6,7 +6,7 @@ const hashPassword = async (req, res, next) => {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
         req.body.password = hashedPassword;
-        next();
+        return next();
     } catch (error) {
         res.status(500).json({ error: 'Error hashing password' });
     }

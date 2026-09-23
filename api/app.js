@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import prisma from "./config/database.js";
 import routes from "./src/routes/routes.js";
 import session from "express-session";
+import hasPermission from "./src/middlewares/hasPermission.js";
 dotenv.config();
 
 const app = express();
@@ -21,7 +22,7 @@ app.use(session({
   } // Set to true if using HTTPS
 }));
 
-app.use("/api", routes);
+app.use("/api",hasPermission, routes);
 app.listen(5000, () => {
   console.log("API server is running on port 5000");
 });

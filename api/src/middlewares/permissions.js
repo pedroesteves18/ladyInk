@@ -11,6 +11,9 @@ const PERMISSIONS = {
         "get": ["admin", "user", "guest"],
         "put": ["admin", "user"],
         "delete": ["admin", "user"]
+    },
+    "auth": {
+        "post": ["admin", "user", "guest"]
     }
 }
 
